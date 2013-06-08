@@ -9,11 +9,8 @@ TwentyQuestionsTree::TwentyQuestionsTree(FILE *fp)
 {
   char *p,*l,*r;
   char buff[500];
-
-  while((fgets(buff,500,fp)!=NULL))
-    {  
-       if(root==NULL)
-   {
+if(root==NULL)
+	 {
 	   if(fgets(buff,500,fp)!=NULL){
 	     p=strtok(buff,",\n");
 	     root = new BinaryNode(p);
@@ -22,7 +19,12 @@ TwentyQuestionsTree::TwentyQuestionsTree(FILE *fp)
 	     r=strtok(NULL,"\n");
 	     root->right=new BinaryNode(r);}
 	 }
-        p = strtok(buff,",\n");
+ else
+   TwentyQuestionsTree();
+   
+  while((fgets(buff,500,fp)!=NULL))
+    {  
+        p = strtok(buff,",\n");  
         l = strtok(NULL,",\n");
 	r = strtok(NULL, "\n");
 	insert(root,p,l,r);
@@ -48,9 +50,9 @@ bool TwentyQuestionsTree::insert(BinaryNode *r,char *parent, char *left, char *r
    {
      if(strcmp(r->question,parent)==0)
        {
-      	 r->left = new BinaryNode(left);
-	       r->right= new BinaryNode(right);
-	       return true;
+	 r->left = new BinaryNode(left);
+	 r->right= new BinaryNode(right);
+	 return true;
        }
    }
  else
@@ -164,9 +166,9 @@ void TwentyQuestionsTree::recordAnswer(int answer)
  */
 void TwentyQuestionsTree::storeTree(BinaryNode *n,FILE *fp)
 {
-  if(!n)
+  if(n==NULL)
     return;
-  if(n!=NULL)
+  else
     {
       fputs(n->question,fp);
       storeTree(n->left, fp);
